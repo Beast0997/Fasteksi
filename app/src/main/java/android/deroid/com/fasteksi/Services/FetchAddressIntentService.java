@@ -49,15 +49,6 @@ public class FetchAddressIntentService extends IntentService {
         List<Address> addresses = null;
         Geocoder geocoder;
 
-
-       /* String strlongitude = intent.getStringExtra("longitude");
-        String strlatitude = intent.getStringExtra("latitude");
-
-
-        double longitude = Double.parseDouble(strlongitude);
-        double latitude = Double.parseDouble(strlatitude);*/
-
-
         doublelongitude = intent.getDoubleExtra("longitude", longitude);
 
         doublelatitude = intent.getDoubleExtra("latitude", latitude);
@@ -66,8 +57,7 @@ public class FetchAddressIntentService extends IntentService {
 
         try {
             addresses = geocoder.getFromLocation(doublelatitude, doublelongitude, 1);
-            //List<Address> addresses  = geocoder.getFromLocation(doublelongitude ,doublelatitude,1);
-            //Toast.makeText(getApplicationContext(), addresses.toString(), Toast.LENGTH_SHORT).show();
+
             Log.i("addresses", addresses.toString());
             if (addresses != null) {
                 Address address = addresses.get(0);
@@ -76,9 +66,7 @@ public class FetchAddressIntentService extends IntentService {
                     sb.append(address.getAddressLine(i)).append("\t");
                 }
                 addressText = sb.toString();
-                //Toast.makeText(getApplicationContext(), addressText, Toast.LENGTH_SHORT).show();
             } else {
-                //Toast.makeText(getApplicationContext(), "No address", Toast.LENGTH_SHORT).show();
             }
         } catch (IOException e) {
             errorMessage = getString(R.string.servicenotavaibale);
@@ -86,7 +74,7 @@ public class FetchAddressIntentService extends IntentService {
         } catch (IllegalArgumentException illegalArgumentException) {
             errorMessage = getString(R.string.latlng);
         }
-        if (new MapsFragment().isAdded()) {
+       /* if (new MapsFragment().isAdded()) {
             mReceiver = intent.getParcelableExtra("recevier");
             Bundle bundle = new Bundle();
             mReceiver.send(STATUS_RUNNING, Bundle.EMPTY);
@@ -96,7 +84,12 @@ public class FetchAddressIntentService extends IntentService {
 
             bundle.putString(Intent.EXTRA_TEXT, "ERROR");
             mReceiver.send(STATUS_ERROR, bundle);
+        }*/
 
-        }
+        mReceiver = intent.getParcelableExtra("recevier");
+        Bundle bundle = new Bundle();
+
+        bundle.putString("addressText" ,addressText);
+        mReceiver.send(STATUS_FINISHED , bundle);
     }
 }

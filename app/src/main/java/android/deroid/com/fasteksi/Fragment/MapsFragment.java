@@ -26,6 +26,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +62,7 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
     int MINDISTANCE = 6000;
     GoogleMap gMap;
     String addressText;
+    Spinner spinnerCity;
     View view;
     public AddressResultReceiver addressResultReceiver;
 
@@ -174,15 +177,22 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-
+                LayoutInflater  inflater  = LayoutInflater.from(getContext());
+                final View view = inflater.inflate(R.layout.gpsalert_dialog ,null);
+                dialogViews();
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                //builder.setView(R.layout.gpsalert_dialog);
+                builder.setView(view);
                 builder.setCancelable(true);
                 builder.show();
             }
         });
         AlertDialog alertDialog = alert.create();
         alertDialog.show();
+    }
+
+    private void dialogViews() {
+        spinnerCity = (Spinner)view.findViewById(R.id.spinner_city);
+
     }
 
     @Override
@@ -226,23 +236,8 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
-
-        switch (resultCode) {
-            case FetchAddressIntentService.STATUS_RUNNING:
-                Toast.makeText(getContext(), "Please Wait Process is Runing", Toast.LENGTH_SHORT).show();
-                break;
-
-            case FetchAddressIntentService.STATUS_FINISHED:
                 String results = resultData.getString("addressText");
                 currentStatus.setText(results);
-                break;
-
-            case FetchAddressIntentService.STATUS_ERROR:
-                String message = resultData.getString(Intent.EXTRA_TEXT);
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                break;
-        }
-
 /*
         if (resultCode == 1) {
             String results = resultData.getString("addressText");
