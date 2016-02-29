@@ -25,7 +25,6 @@ public class LaterFragment extends Fragment implements AdapterView.OnItemClickLi
     TextView currentLocation;
     AutoCompleteTextView droparea;
     String results;
-    AddressResultReceiver addressResultReceiver;
 
 
     @Nullable
