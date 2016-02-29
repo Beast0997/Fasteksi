@@ -21,4 +21,5 @@
     <string name="servicenotavaibale">Service Not Available</string>
     <string name="latlng">No Longitude and Latitude</string>
     <string name="no_address_found">No Address Found</string>
+    <string name="edit"><u>EDIT</u></string>
 </resources>

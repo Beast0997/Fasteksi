@@ -19,10 +19,10 @@ import android.widget.Toast;
 /**
  * Created by gulshank on 19-02-2016.
  */
-public class LaterFragment extends Fragment implements AdapterView.OnItemClickListener{
+public class LaterFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     View view;
-    TextView currentLocation;
+    TextView currentLocation ,editlocation;
     AutoCompleteTextView droparea;
     String results;
 
@@ -36,6 +36,7 @@ public class LaterFragment extends Fragment implements AdapterView.OnItemClickLi
             currentLocation.setText(MapsFragment.results);
             droparea.setAdapter(new AutoCompleteTextForArea(getActivity(), android.R.layout.simple_list_item_1));
             droparea.setOnItemClickListener(this);
+            editlocation.setOnClickListener(this);
             return view;
         }else
             return view;
@@ -44,6 +45,7 @@ public class LaterFragment extends Fragment implements AdapterView.OnItemClickLi
     private void initViews() {
         currentLocation = (TextView)view.findViewById(R.id.location);
         droparea = (AutoCompleteTextView) view.findViewById(R.id.edittxt_droparea);
+        editlocation = (TextView)view.findViewById(R.id.txt_edit);
     }
 
     @Override
@@ -52,4 +54,19 @@ public class LaterFragment extends Fragment implements AdapterView.OnItemClickLi
         Toast.makeText(getContext() ,str ,Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+
+            case R.id.txt_edit:
+                editLocation();
+                break;
+        }
+    }
+
+    private void editLocation() {
+
+        Toast.makeText(getContext() ,"Edit" ,Toast.LENGTH_SHORT).show();
+    }
 }
