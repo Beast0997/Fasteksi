@@ -16,14 +16,17 @@
         android:layout_height="70dp"
         android:orientation="horizontal">
 
-        <TextView
+        <AutoCompleteTextView
             android:id="@+id/location"
             android:layout_width="0dp"
             android:layout_weight="0.75"
+            android:hint="Enter Address here"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_gravity="right|center_vertical"
             android:textColor="@color/colorPrimary"
             android:textSize="15dp"
+            android:background="@null"
             android:textStyle="bold" />
 
         <TextView
