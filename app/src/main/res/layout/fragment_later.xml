@@ -38,6 +38,7 @@
             android:linksClickable="true"
             android:textStyle="bold"
             android:text="@string/edit"
+            android:textSize="17sp"
             android:textColor="@color/btn_sign" />
 
     </LinearLayout>
