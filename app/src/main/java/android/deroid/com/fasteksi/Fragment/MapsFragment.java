@@ -1,11 +1,13 @@
 package android.deroid.com.fasteksi.Fragment;
 
 import android.Manifest;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.deroid.com.fasteksi.Adapter.AutoCompleteTextForArea;
 import android.deroid.com.fasteksi.R;
 import android.deroid.com.fasteksi.Services.AddressResultReceiver;
 import android.deroid.com.fasteksi.Services.FetchAddressIntentService;
@@ -22,11 +24,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,8 +69,11 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
     int MINDISTANCE = 6000;
     GoogleMap gMap;
     String addressText;
-    Spinner spinnerCity;
     View view;
+    ImageView close;
+    Spinner spinnerCity;
+    AutoCompleteTextView autoCompletetextArea;
+    public static  String results ="";
     public AddressResultReceiver addressResultReceiver;
 
     @Nullable
@@ -72,6 +82,14 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
         if (view == null) {
             view = inflater.inflate(R.layout.map_fragment, container, false);
             currentStatus = (TextView) view.findViewById(R.id.txt_CurrentStatus);
+         /*   Fragment fragment = new bookingFragment();
+            FragmentManager fm = getChildFragmentManager();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            Bundle args = new Bundle();
+            args.putString("addressText", results);
+            fragment.setArguments(args);
+            fragmentTransaction.add(R.id.booking_frame, fragment);
+            fragmentTransaction.commit();*/
             getChildFragmentManager().beginTransaction().add(R.id.booking_frame, new bookingFragment()).commit();
             checkConnection();
             return view;
@@ -175,11 +193,20 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
                 });
         alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                LayoutInflater  inflater  = LayoutInflater.from(getContext());
-                final View view = inflater.inflate(R.layout.gpsalert_dialog ,null);
-                dialogViews();
+            public void onClick(final DialogInterface dialog, int which) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                final View view = inflater.inflate(R.layout.gpsalert_dialog, null);
+                spinnerCity = (Spinner) view.findViewById(R.id.spinner_city);
+                close = (ImageView) view.findViewById(R.id.img_close);
+                autoCompletetextArea = (AutoCompleteTextView) view.findViewById(R.id.edt_area);
+                autoCompletetextArea.setAdapter(new AutoCompleteTextForArea(getActivity(), android.R.layout.simple_list_item_1));
+                autoCompletetextArea.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String str = (String) parent.getItemAtPosition(position);
+                        Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setView(view);
                 builder.setCancelable(true);
@@ -190,10 +217,6 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
         alertDialog.show();
     }
 
-    private void dialogViews() {
-        spinnerCity = (Spinner)view.findViewById(R.id.spinner_city);
-
-    }
 
     @Override
     public void onLocationChanged(final Location location) {
@@ -236,10 +259,8 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
-                String results = resultData.getString("addressText");
-                currentStatus.setText(results);
-/*
-        if (resultCode == 1) {
+
+       /* if (resultCode == 1) {
             String results = resultData.getString("addressText");
             currentStatus.setText(results);
         } else if (resultCode == 0) {
@@ -247,8 +268,18 @@ public class MapsFragment extends Fragment implements LocationListener, AddressR
         }else {
             String message = resultData.getString(Intent.EXTRA_TEXT);
             Toast.makeText(getContext(), message,Toast.LENGTH_SHORT).show();
-        }
-*/
+        }*/
 
+        if (resultCode == 1) {
+            results = resultData.getString("addressText");
+            currentStatus.setText(results);
+        }
+        if (resultCode == 0) {
+            Toast.makeText(getContext(), "Please Wait Process is Runing", Toast.LENGTH_SHORT).show();
+        }
+        if (resultCode == 2) {
+            String message = resultData.getString(Intent.EXTRA_TEXT);
+            Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -19,6 +19,7 @@ public class bookingFragment extends Fragment implements View.OnClickListener {
 
     View view;
     LinearLayout layoutlater ,layoutnow;
+    String addressTxt;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class bookingFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.layout_later:
                 Toast.makeText(getActivity(),"Later",Toast.LENGTH_SHORT).show();
-                    fragment = new LaterFragment();
+                fragment = new LaterFragment();
                 break;
             case R.id.layout_now:
                 Toast.makeText(getActivity(),"Later",Toast.LENGTH_SHORT).show();

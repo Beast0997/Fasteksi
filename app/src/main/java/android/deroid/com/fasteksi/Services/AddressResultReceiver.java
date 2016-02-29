@@ -1,5 +1,6 @@
 package android.deroid.com.fasteksi.Services;
 
+import android.deroid.com.fasteksi.Fragment.LaterFragment;
 import android.deroid.com.fasteksi.Fragment.MapsFragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +32,6 @@ public class AddressResultReceiver  extends ResultReceiver{
 
     public interface Receiver {
         public void onReceiveResult(int resultCode, Bundle resultData);
-
     }
 
 
@@ -43,9 +43,10 @@ public class AddressResultReceiver  extends ResultReceiver{
     protected void onReceiveResult(int resultCode, Bundle resultData) {
 
         if (mreceiver != null){
-            if(mapFragment.isAdded()) {
-                mreceiver.onReceiveResult(resultCode, resultData);
-            }
+           /* if(mapFragment.isAdded()) {
+
+            }*/
+            mreceiver.onReceiveResult(resultCode, resultData);
         }
     }
 }

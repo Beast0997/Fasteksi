@@ -188,8 +188,9 @@ public class BookMyCar extends AppCompatActivity {
                     fragment = new FragmentFares();
                     break;
             }
+            String backStack = this.getClass().getName();
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(backStack).commit();
             mDrawerList.setItemChecked(position, true);
             setTitle(_items.get(position).getItemName());
             mDrawerLayout.closeDrawer(mDrawerList);

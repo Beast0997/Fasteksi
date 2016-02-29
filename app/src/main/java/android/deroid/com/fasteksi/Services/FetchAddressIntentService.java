@@ -74,7 +74,16 @@ public class FetchAddressIntentService extends IntentService {
         } catch (IllegalArgumentException illegalArgumentException) {
             errorMessage = getString(R.string.latlng);
         }
-       /* if (new MapsFragment().isAdded()) {
+        mReceiver = intent.getParcelableExtra("recevier");
+        Bundle bundle = new Bundle();
+        mReceiver.send(STATUS_RUNNING, Bundle.EMPTY);
+
+        bundle.putString("addressText", addressText);
+        mReceiver.send(STATUS_FINISHED, bundle);
+
+        bundle.putString(Intent.EXTRA_TEXT, "ERROR");
+        mReceiver.send(STATUS_ERROR, bundle);
+   /*     if (new MapsFragment().isAdded()) {
             mReceiver = intent.getParcelableExtra("recevier");
             Bundle bundle = new Bundle();
             mReceiver.send(STATUS_RUNNING, Bundle.EMPTY);
@@ -85,11 +94,5 @@ public class FetchAddressIntentService extends IntentService {
             bundle.putString(Intent.EXTRA_TEXT, "ERROR");
             mReceiver.send(STATUS_ERROR, bundle);
         }*/
-
-        mReceiver = intent.getParcelableExtra("recevier");
-        Bundle bundle = new Bundle();
-
-        bundle.putString("addressText" ,addressText);
-        mReceiver.send(STATUS_FINISHED , bundle);
     }
 }
