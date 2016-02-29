@@ -25,7 +25,7 @@
             android:layout_marginLeft="16dp"
             android:layout_gravity="right|center_vertical"
             android:textColor="@color/colorPrimary"
-            android:textSize="15dp"
+            android:textSize="17dp"
             android:background="@null"
             android:textStyle="bold" />
 
