@@ -254,7 +254,7 @@
         android:background="#080000" />
 
     <Button
-        android:id="@+id/btn_sign_in"
+        android:id="@+id/btn_continue"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
