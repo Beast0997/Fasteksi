@@ -6,8 +6,6 @@ import android.deroid.com.fasteksi.Json.JsonRequest;
 import android.deroid.com.fasteksi.Preferences.SavedPreferences;
 import android.deroid.com.fasteksi.R;
 import android.deroid.com.fasteksi.Util.AppProprties;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,8 +32,6 @@ public class CustomerLogin extends AppCompatActivity implements View.OnClickList
     CheckBox chkbsaveCredential;
     Button btnsign;
     String phone, password;
-    NetworkInfo networkInfo;
-    ConnectivityManager cm;
     ProgressDialog progressDialog;
     SavedPreferences sf = null;
     boolean isLogIn = false;
@@ -106,7 +102,7 @@ public class CustomerLogin extends AppCompatActivity implements View.OnClickList
     private void onClickSignInResponse() {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         JsonRequest jsonRequest = new JsonRequest();
-            String jsonRqstString = jsonRequest.customerLoginJsonRequest(phone, password);
+            String jsonRqstString = jsonRequest.customerLoginJsonRequest(phone,password);
             progressDialog = new ProgressDialog(CustomerLogin.this);
             progressDialog.setMessage("Loading....");
             progressDialog.show();
