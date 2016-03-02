@@ -21,7 +21,7 @@ public class WhenCabTime extends Fragment {
 
         if (view == null){
             view = inflater.inflate(R.layout.when_cabfragment , container ,false);
-            return  view;
+            return view;
         }else
             return view;
     }

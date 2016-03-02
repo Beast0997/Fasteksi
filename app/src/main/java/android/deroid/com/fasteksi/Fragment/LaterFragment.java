@@ -37,10 +37,7 @@ public class LaterFragment extends Fragment implements AdapterView.OnItemClickLi
     View view;
     TextView editlocation;
     AutoCompleteTextView droparea;
-    String results;
-    private String format = "";
     Button btnContinue;
-    TimePicker timePicker;
     AutoCompleteTextView currentLocation;
     CheckBox chkBoxRetainCab;
 
@@ -88,11 +85,12 @@ public class LaterFragment extends Fragment implements AdapterView.OnItemClickLi
                 hourdialog();
                 break;
             case R.id.btn_continue:
-                Fragment fragment = new WhenCabTime();
-                FragmentManager fm = getFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fm.beginTransaction();
-
-
+//                Fragment fragment = new WhenCabTime();
+//                FragmentManager fm = getFragmentManager();
+//                android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
+//                ft.replace(R.id.content_frame, fragment);
+//                ft.commit();
+                Toast.makeText(getContext() ,"Continue" ,Toast.LENGTH_SHORT).show();
                 break;
         }
     }
